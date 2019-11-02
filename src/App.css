@@ -1,22 +1,51 @@
-.App {
-  text-align: center;
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+/* main {
   min-height: 100vh;
+  background-color: #333333;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+} */
+
+input:focus {
+  outline: none;
 }
 
-.App-link {
-  color: #09d3ac;
+#search {
+  grid-column-start: 1;
+  grid-row-start: 1;
+}
+#search-field {
+  font-family: Helvetica, sans-serif;
+  font-size: 10vw;
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0);
+}
+
+#copyright {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+  z-index: 1;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  font-family: Helvetica, sans-serif;
+  font-weight: 200;
+  font-size: 0.6rem;
 }
