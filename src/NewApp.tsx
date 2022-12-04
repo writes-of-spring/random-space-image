@@ -22,7 +22,7 @@ export function App() {
   return (
     <main
       className="h-screen bg-gray-800 flex items-center justify-center flex-wrap bg-cover"
-      // style={{ backgroundImage: `url(${data})` }}
+      style={{ backgroundImage: `url(${data})` }}
     >
       <section className="container mx-auto">
         <input
