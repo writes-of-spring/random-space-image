@@ -9,10 +9,13 @@ async function fetchImage(query: string): Promise<APIRes> {
   url.searchParams.append("media_type", "image");
 
   const result = await fetch(url.toString());
+
+  if (!result.ok) throw new Error("Failed to fetch image");
   return await result.json();
 }
 const getRandomImage = (data?: APIRes) => {
   if (!data?.collection?.items?.length) return;
+  //return a random image from the array of images in the API response
   const randomIndex = Math.floor(Math.random() * data.collection.items.length);
   return data.collection?.items[randomIndex]?.links[0]?.href;
 };
@@ -29,20 +32,19 @@ export function App() {
     },
   });
 
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ["image", searchQuery],
     queryFn: () => fetchImage(searchQuery),
     enabled: !!searchQuery,
     keepPreviousData: true,
   });
-  console.log(data);
 
   const onSubmit = (data: Form) => {
     setSearchQuery(data.searchTerm);
   };
   return (
     <main
-      className="h-screen bg-gray-800 flex items-center justify-center flex-wrap bg-cover"
+      className="flex h-screen flex-wrap items-center justify-center bg-gray-800 bg-cover"
       style={{ backgroundImage: `url(${getRandomImage(data)})` }}
     >
       <section className="container mx-auto">
@@ -53,7 +55,7 @@ export function App() {
             id="search-field"
             placeholder="search and hit enter"
             {...register("searchTerm")}
-            className="bg-gray-200 rounded-full w-full px-4 py-1 text-gray-700 focus:outline-none focus:shadow-outline"
+            className="focus:shadow-outline w-full rounded-full bg-gray-200 py-1 text-gray-700 focus:outline-none"
           />
         </form>
       </section>
@@ -61,10 +63,14 @@ export function App() {
   );
 }
 
-interface APIResItem {
-  data: any[];
+interface LinkWithHref {
   href: string;
-  links: any[];
+  [key: string]: unknown;
+}
+interface APIResItem {
+  data: unknown[];
+  href: string;
+  links: LinkWithHref[];
 }
 interface APIRes {
   collection: {
